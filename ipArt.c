@@ -584,6 +584,7 @@ rtArtDeleteRoute (rtTable* pt, u8* pDest, int plen)
     if ( plen == 0 ) {
         pEnt = pt->root[1].ent;
         pt->root[1].ent = NULL;
+        if (pEnt) pt->nRoutes--;
         goto FreeAndReturn;
     }
 
@@ -626,7 +627,6 @@ rtArtDeleteRoute (rtTable* pt, u8* pDest, int plen)
 
 FreeAndReturn:
     if ( pEnt == NULL ) return false;
-    pt->nRoutes--;
     rtArtFreeRoute(pt, pEnt);
     return true;
 }
